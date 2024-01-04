@@ -1,0 +1,2664 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "WEATHER REST API",
+    "description": "JSON REST API for weather readings"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "basePath": "",
+  "paths": {
+    "/docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/readings/all": {
+      "get": {
+        "summary": "Get all readings",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Found all readings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No found all readings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/{device_name}/{page}/{size}": {
+      "get": {
+        "summary": "Get readings By device name and page",
+        "description": "",
+        "parameters": [
+          {
+            "name": "device_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "device name"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "page"
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the number of documents on the page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found readings by device name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No readings found by device name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/page/{page}/{size}": {
+      "get": {
+        "summary": "Get readings By page",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "page"
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The number of documents on the page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found readings by page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No readings found by page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/device/{device_name}/date/{date}/hour/{hour}": {
+      "get": {
+        "summary": "Get readings By device name/ date & hour, returning the temperature, atmospheric pressure, radiation and precipitation.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "device_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Device name"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Date 2020-07-31~2021-05-07"
+          },
+          {
+            "name": "hour",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hour"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found readings by device name/datetime",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No readings found by device dame/datetime",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/temperature/max/{start_date}/{end_date}": {
+      "get": {
+        "summary": "Get max temp By datetime,returning the Sensor Name, reading date / time and the Temperature value",
+        "description": "",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Start date 2020-07-31~",
+            "format": "date",
+            "default": "2020-08-22"
+          },
+          {
+            "name": "end_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "End date ~2021-05-07",
+            "format": "date",
+            "default": "2020-08-30"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found max temp by device datetime",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No Found max temp by device datetime",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/precipitation/max/fivemonths/{device_name}/{date}": {
+      "get": {
+        "summary": "Get max precipitation by device name in 5 months, returning the sensor name, reading date / time and the precipitation value ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "device_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Device name",
+            "default": "Noosa_Sensor"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Data should be within 2020-12-01 ~ 2021-05-07"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found max precipitation by device name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No Found max precipitation by device name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/device_name/new-reading": {
+      "post": {
+        "summary": "Create device name and a new reading",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "new station and reading created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Station and reading have not been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Create device name and reading",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "device_name": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "temp_c": {
+                    "type": "number"
+                  },
+                  "humidity_per": {
+                    "type": "number"
+                  },
+                  "max_windspeede_ms": {
+                    "type": "number"
+                  },
+                  "solar_radiation_wm2": {
+                    "type": "number"
+                  },
+                  "vapour_pressure_kpa": {
+                    "type": "number"
+                  },
+                  "wind_direction_deg": {
+                    "type": "number"
+                  },
+                  "precipitation_mmh": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "precipitation_mmh": 0.3,
+                "latitude": 100,
+                "time": "2021-05-07T03:44:04.000+00:00",
+                "longitude": -20,
+                "temp_c": 22,
+                "device_name": "Tafe _Sensor",
+                "atomospheric_pressure_kpa": 129,
+                "max_windspeed_ms": 4.94,
+                "solar_radiation_wm2": 113,
+                "vapour_pressure_kpa": 1.73,
+                "wind_direction_deg": 155.6,
+                "humidity_per": 73.9
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/multi/readings": {
+      "post": {
+        "summary": "Create device name and new multiple readings",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "new station and readings created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Station and reading have not been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Create device name and readings",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "device_name": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "temp_c": {
+                    "type": "number"
+                  },
+                  "humidity_per": {
+                    "type": "number"
+                  },
+                  "max_windspeede_ms": {
+                    "type": "number"
+                  },
+                  "solar_radiation_wm2": {
+                    "type": "number"
+                  },
+                  "vapour_pressure_kpa": {
+                    "type": "number"
+                  },
+                  "wind_direction_deg": {
+                    "type": "number"
+                  },
+                  "precipitation_mmh": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "precipitation_mmh": 0.3,
+                  "latitude": 152.77891,
+                  "time": "2021-05-07T03:44:04.000+00:00",
+                  "longitude": -26.95064,
+                  "temp_c": 22,
+                  "device_name": "Tafe _Sensor",
+                  "atomospheric_pressure_kpa": 129,
+                  "max_windspeed_ms": 4.94,
+                  "solar_radiation_wm2": 113,
+                  "vapour_pressure_kpa": 1.73,
+                  "wind_direction_deg": 155.6,
+                  "humidity_per": 73.9
+                },
+                {
+                  "precipitation_mmh": 0.3,
+                  "latitude": 152.77891,
+                  "time": "2021-05-10T03:44:04.000+00:00",
+                  "longitude": -26.95064,
+                  "temp_c": 22,
+                  "device_name": "Tafe _Sensor",
+                  "atomospheric_pressure_kpa": 129,
+                  "max_windspeed_ms": 4.94,
+                  "solar_radiation_wm2": 113,
+                  "vapour_pressure_kpa": 1.73,
+                  "wind_direction_deg": 155.6,
+                  "humidity_per": 73.9
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/readings/update/precipitation": {
+      "patch": {
+        "summary": "Update precipitation by ID",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Updated precipitation by device name and DocumentID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "precipitation by device name and DocumentID has not updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Update precipitation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "device_name": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "temp_c": {
+                    "type": "number"
+                  },
+                  "humidity_per": {
+                    "type": "number"
+                  },
+                  "max_windspeede_ms": {
+                    "type": "number"
+                  },
+                  "solar_radiation_wm2": {
+                    "type": "number"
+                  },
+                  "vapour_pressure_kpa": {
+                    "type": "number"
+                  },
+                  "wind_direction_deg": {
+                    "type": "number"
+                  },
+                  "precipitation_mmh": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "_id": "64cf14ffb0529c53bbff6611",
+                "precipitation_mmh": 0.3
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/update/reading": {
+      "patch": {
+        "summary": "Update a existing reading",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Updated precipitation by device name and DocumentID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "reading": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "device_name": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "temp_c": {
+                          "type": "number"
+                        },
+                        "humidity_per": {
+                          "type": "number"
+                        },
+                        "max_windspeede_ms": {
+                          "type": "number"
+                        },
+                        "solar_radiation_wm2": {
+                          "type": "number"
+                        },
+                        "vapour_pressure_kpa": {
+                          "type": "number"
+                        },
+                        "wind_direction_deg": {
+                          "type": "number"
+                        },
+                        "precipitation_mmh": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "precipitation by device name and DocumentID has not updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Update precipitation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "device_name": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "temp_c": {
+                    "type": "number"
+                  },
+                  "humidity_per": {
+                    "type": "number"
+                  },
+                  "max_windspeede_ms": {
+                    "type": "number"
+                  },
+                  "solar_radiation_wm2": {
+                    "type": "number"
+                  },
+                  "vapour_pressure_kpa": {
+                    "type": "number"
+                  },
+                  "wind_direction_deg": {
+                    "type": "number"
+                  },
+                  "precipitation_mmh": {
+                    "type": "number"
+                  }
+                }
+              },
+              "example": {
+                "id": "64cf14ffb0529c53bbff6611",
+                "precipitation_mmh": 0.3,
+                "latitude": 152.77891,
+                "time": "2021-05-07T03:44:04.000+00:00",
+                "longitude": -26.95064,
+                "temp_c": 22,
+                "device_name": "Woodford _Sensor",
+                "atomospheric_pressure_kpa": 129,
+                "max_windspeed_ms": 4.94,
+                "solar_radiation_wm2": 113,
+                "vapour_pressure_kpa": 1.73,
+                "wind_direction_deg": 155.6,
+                "humidity_per": 73.9
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readings/{id}": {
+      "delete": {
+        "summary": "Delete reading by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Reading ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted reading",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Reading is not deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "User login",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "authenticationKey": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Attempt user login with email and password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "user@server.com",
+                "password": "abc123"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "summary": "User logout",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Logout succssful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "authenticationKey": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fail to Logout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Invalidate and clear current authentication key from the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authenticationKey": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "authenticationKey": "5814b177-b041-48c6-b913-9ed2d4a785e4"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "options": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get user by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No user found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User has not been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/auth/key/{authenticationkey}": {
+      "get": {
+        "summary": "Get user by authentication key",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationkey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "authenticationkey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No found user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/": {
+      "post": {
+        "summary": "Create user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User has not been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Create a new user account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "student",
+                      "admin"
+                    ]
+                  }
+                }
+              },
+              "example": {
+                "email": "user@server.com",
+                "password": "abc123",
+                "role": "admin"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "summary": "Register user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Register user has not been implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Register a new user account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "options": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Updated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User has not been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Update an existing user account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "student",
+                      "admin"
+                    ]
+                  },
+                  "authenticationKey": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "registeredDate": {
+                    "type": "string"
+                  },
+                  "lastlogindate": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "id": "6510fbe823807bfe02c7e36b",
+                "password": "abc123",
+                "email": "abc1234@hotmail.com"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update/id": {
+      "options": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Updated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User has not been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Update an existing user account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "student",
+                      "admin"
+                    ]
+                  },
+                  "authenticationKey": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "registeredDate": {
+                    "type": "string"
+                  },
+                  "lastlogindate": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "id": "6510fbe823807bfe02c7e36b",
+                "password": "abc123",
+                "email": "abc1234@hotmail.com"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/role/update": {
+      "patch": {
+        "summary": "Update users roles with registrated date",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Updated user role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "student",
+                            "admin"
+                          ]
+                        },
+                        "authenticationKey": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "registeredDate": {
+                          "type": "string"
+                        },
+                        "lastlogindate": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User role has not been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Update an existing users role",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "student",
+                      "admin"
+                    ]
+                  },
+                  "authenticationKey": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "registeredDate": {
+                    "type": "string"
+                  },
+                  "lastlogindate": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "role": "student",
+                "startDate": "2023-09-10",
+                "endDate": "2023-09-11"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/students/{start_date}/{end_date}": {
+      "delete": {
+        "summary": "Delete multiple users by registered date range",
+        "description": "",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "start date"
+          },
+          {
+            "name": "end_date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "end date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Users have not been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Database error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "AuthenticationKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-AUTH-KEY"
+      }
+    }
+  },
+  "security": [
+    {
+      "AuthenticationKey": []
+    }
+  ]
+}
